@@ -17,47 +17,41 @@ public class CategoryController {
     @Autowired
     private CategoryService categoryServices;
     @GetMapping("/list")
-    public String showAllBooks(Model model){
+    public String showAllCategories(Model model){
         List<Category> categories    = categoryServices.getAllCategories();
         model.addAttribute("categories",categories);
         return "Category/list";
     }
     @GetMapping("/add")
-    public String addBookForm(Model model){
+    public String addCategoryForm(Model model){
         model.addAttribute("category", new Category());
         return "Category/add";
     }
     @PostMapping("/add")
-    public String addBook(@Valid @ModelAttribute("category") Category category, BindingResult bindingResult, Model model){
+    public String addCategory(@Valid @ModelAttribute("category") Category category, BindingResult bindingResult){
         if (bindingResult.hasErrors()){
-            model.addAttribute("category", categoryServices.getAllCategories());
-            return "Categories/add";
+            return "Category/add";
         }
         categoryServices.saveCategory(category);
         return "redirect:/categories/list";
     }
     @GetMapping("/edit/{id}")
-    public String editBookForm(@PathVariable("id") Long id, Model model) {
-        // Get the book by ID
+    public String editCategoryForm(@PathVariable("id") Long id, Model model) {
         Category category = categoryServices.getCategoryById(id);
-
-        // Add the book and categories to the model
-        model.addAttribute("categories", category);
+        model.addAttribute("category", category);
 
         return "Category/edit";
     }
-
-    // POST request to handle the form submission
     @PostMapping("/edit/{id}")
-    public String editBook(@ModelAttribute("") Category category) {
-        Long id = category.getId();
-
+    public String editCategory(@Valid @ModelAttribute("category") Category category, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()){
+            return "Category/edit";
+        }
         categoryServices.saveCategory(category);
-
         return "redirect:/categories/list";
     }
     @GetMapping("/delete/{id}")
-    public String deleteBook(@PathVariable("id") Long id){
+    public String deleteCategory(@PathVariable("id") Long id){
         categoryServices.deleteCategory(id);
         return "redirect:/categories/list    ";
     }

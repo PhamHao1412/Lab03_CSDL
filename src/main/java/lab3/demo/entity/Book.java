@@ -19,11 +19,12 @@ public class Book {
 
 
     @Column(name = "title", length = 50)
-    @NotNull(message = "Title must not be null")
-    @Size(max = 50, min = 1, message = "Title must be less than 50 character")
+    @NotEmpty(message = "Title must not be empty")
+    @Size(max = 50, message = "Title must be less than 50 character")
     private String title;
 
     @Column(name = "author", length = 50)
+    @NotEmpty(message = "Author must not be null")
     @Size(max = 50, message = "Author must be less than 50 characters")
     private String author;
 
@@ -34,7 +35,7 @@ public class Book {
 
     @ManyToOne
     @JoinColumn(name = "category_id", referencedColumnName = "id")
-    @ValidCategoryId
+    @ValidCategoryId(message = "Please choose category")
     private Category category;
 
     @ManyToOne

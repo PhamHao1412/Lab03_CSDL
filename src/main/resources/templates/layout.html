@@ -26,9 +26,6 @@
           </li>
           <li class="nav-item"><a class="nav-link" href="/books/list">List Book</a></li>
           <li class="nav-item"><a class="nav-link" href="/categories/list">List Category</a></li>
-
-          <li class="nav-item"><a class="nav-link" href="/books/add">Add Book</a></li>
-          <li class="nav-item"><a class="nav-link" href="/categories/add">Add Category</a></li>
           <li sec:authourize="isAuthenticated()">
             <form th:action="@{logout}" method="post">
               <button class="btn btn-outline-danger" type="submit">Logout</button>

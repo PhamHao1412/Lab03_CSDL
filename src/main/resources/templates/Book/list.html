@@ -6,6 +6,8 @@
 </head>
 <body>
 <th:block th:replace="layout:: header"></th:block> <div class="container">
+  <button class="btn btn-outline-danger" type="submit"><a class="nav-link" href="/books/add">Add Book</a></button>
+
   <h1 th:text-${title}></h1>
   <table class="table">
     <tr>

@@ -56,12 +56,12 @@ public class BookController {
 
         return "Book/edit";
     }
-
-    // POST request to handle the form submission
     @PostMapping("/edit/{id}")
-    public String editBook(@ModelAttribute("book") Book book) {
-        Long id = book.getId();
-
+    public String editBook(@Valid @ModelAttribute("book") Book book, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()){
+            model.addAttribute("categories", categoryServices.getAllCategories());
+            return "Book/edit";
+        }
         bookService.updateBook(book);
 
         return "redirect:/books/list";
