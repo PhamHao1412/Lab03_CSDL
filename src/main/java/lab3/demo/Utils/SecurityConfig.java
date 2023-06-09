@@ -41,13 +41,17 @@ public class SecurityConfig {
                                 "/error")
                         .permitAll()
 
-                        .requestMatchers("/books/edit", "/books/delete")
+                        .requestMatchers("/books/edit", "/books/delete", "/categories/edit", "/categories/delete")
 
-                        .authenticated()
+                        .hasAnyAuthority("ADMIN")
 
-                        .requestMatchers("/books", "/books/add")
+                        .requestMatchers("/books", "/categories" )
 
-                        .authenticated()
+                        .hasAnyAuthority("ADMIN", "USER")
+
+                        .requestMatchers("/books/add", "/categories/add")
+
+                        .hasAnyAuthority("ADMIN")
 
                         .anyRequest().authenticated()
 

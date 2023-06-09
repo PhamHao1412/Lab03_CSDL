@@ -18,6 +18,6 @@ public class CustomUserDetailService implements UserDetailsService {
         User user = userRepository.findByUsername(username);
         if (user == null)
             throw new UsernameNotFoundException("User không tìm thấy");
-        return new CustomUserDetail(user);
+        return new CustomUserDetail(user,userRepository);
     }
 }

@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"><head>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+      lang="en">
   <meta charset="UTF-8">
   <title>My Book List</title>
   <th:block th:replace="layout :: link-css"></th:block>
@@ -7,16 +9,18 @@
 <body>
 <th:block th:replace="layout:: header"></th:block> <div class="container">
   <h1 th:text-${title}></h1>
-  <button class="btn btn-outline-danger" type="submit"><a class="nav-link" href="/categories/add">Add Category</a></button>
+  <button sec:authorize="hasAnyAuthority('ADMIN')" class="btn btn-outline-danger" type="submit"><a class="nav-link" href="/categories/add">Add Category</a></button>
   <table class="table">
     <tr>
       <th>ID</th>
       <th>Name Category</th>
+      <th sec:authorize="hasAnyAuthority('ADMIN')">Action</th>
+
     </tr>
     <tr th:each="category: ${categories}">
       <td th:text="${category.id}"></td>
       <td th:text="${category.name}"></td>
-      <td>
+      <td sec:authorize="hasAnyAuthority('ADMIN')">
         <a th:href="@{/categories/edit/{id} (id=${category.id})}">Edit</a>
         <a th:href="@{/categories/delete/{id}(id=${category.id})}"
            onclick="return confirm('Are you sure?')">Delete</a>

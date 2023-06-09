@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xml:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4" lang="en">
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4" lang="en">
 <head>
   <meta charset="UTF-8">
   <title>My App</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<!--  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"-->
+<!--        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">-->
   <link th:fragment="link-css" rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
 </head>
 <body>
@@ -26,12 +26,13 @@
           </li>
           <li class="nav-item"><a class="nav-link" href="/books/list">List Book</a></li>
           <li class="nav-item"><a class="nav-link" href="/categories/list">List Category</a></li>
-          <li sec:authourize="isAuthenticated()">
-            <form th:action="@{logout}" method="post">
+          <li sec:authorize="isAuthenticated()">
+
+          <form th:action="@{/logout}" method="post">
               <button class="btn btn-outline-danger" type="submit">Logout</button>
             </form>
           </li>
-          <li sec:authourize="isAuthenticated()">
+          <li sec:authorize="!isAuthenticated()">
             <a class="btn btn-outline-primary" href="/login">Login</a>
           </li>
         </ul>
